@@ -39,6 +39,11 @@ public class Challenge {
     @Column(nullable = false, updatable = false)
     private Instant createdAt = Instant.now();
 
+    @Column(length = 100)
+    private String dockerImage;
+
+    private Integer containerPort;
+
     protected Challenge() {
     }
 
@@ -62,4 +67,12 @@ public class Challenge {
     public String getFlagHash() { return flagHash; }
     public boolean isDynamicFlag() { return dynamicFlag; }
     public boolean isActive() { return active; }
+    public String getDockerImage() { return dockerImage; }
+    public Integer getContainerPort() { return containerPort; }
+    public boolean hasContainer() { return dockerImage != null && containerPort != null; }
+
+    public void attachContainer(String image, int port) {
+        this.dockerImage = image;
+        this.containerPort = port;
+    }
 }

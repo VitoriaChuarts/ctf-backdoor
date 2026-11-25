@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ctf-backdoor · achou a porta?</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Press+Start+2P&family=Space+Mono:wght@400;700&display=swap">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <header class="topo">
+    <a class="logo" href="/">
+      <svg class="mini" viewBox="0 0 32 40" aria-hidden="true">
+        <path class="p-corpo" d="M5 38V14Q5 3 16 3T27 14V38Z"/>
+        <circle class="p-macaneta" cx="22" cy="24" r="2.6"/>
+      </svg>
+      ctf-backdoor
+    </a>
+    <div id="area-usuario"></div>
+  </header>
+
+  <main>
+    <section id="boas-vindas" class="hero">
+      <svg id="portinha" viewBox="0 0 200 260" role="img"
+           aria-label="Portinha, a mascote: uma porta rosa de olhos curiosos">
+        <ellipse class="p-sombra" cx="100" cy="248" rx="70" ry="9"/>
+        <path class="p-corpo" d="M40 236V70Q40 20 100 20T160 70V236Z"/>
+        <rect class="p-painel" x="62" y="48" width="76" height="62" rx="10"/>
+        <rect class="p-painel" x="62" y="130" width="76" height="80" rx="10"/>
+        <g id="olhos">
+          <circle class="p-olho" cx="82" cy="78" r="13"/>
+          <circle class="p-olho" cx="118" cy="78" r="13"/>
+          <circle class="p-pupila" id="pupila-e" cx="82" cy="78" r="6"/>
+          <circle class="p-pupila" id="pupila-d" cx="118" cy="78" r="6"/>
+        </g>
+        <ellipse class="p-bochecha" cx="66" cy="100" rx="9" ry="6"/>
+        <ellipse class="p-bochecha" cx="134" cy="100" rx="9" ry="6"/>
+        <path class="p-boca" d="M90 98Q100 108 110 98"/>
+        <circle class="p-fechadura" cx="100" cy="166" r="7"/>
+        <rect class="p-fechadura" x="97" y="168" width="6" height="18" rx="2"/>
+        <circle class="p-macaneta" cx="148" cy="172" r="9"/>
+      </svg>
+
+      <div class="balao">
+        <h1>Psiu! Achou a porta?</h1>
+        <p>Esta aqui estava destrancada. As outras... nem tanto. Resolva desafios, gire as chaves e suba no quadro.</p>
+        <div class="acoes">
+          <button class="btn btn-rosa" id="btn-criar" type="button">Criar minha conta</button>
+          <button class="btn" id="btn-entrar-hero" type="button">Já tenho conta</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="jogo" class="jogo" hidden>
+      <div>
+        <h2>As portas</h2>
+        <div id="portas" class="portas"></div>
+      </div>
+      <aside class="quadro">
+        <h2>Quadro de chaves</h2>
+        <ol id="placar" class="placar"></ol>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="rodape">feito à mão, com café e alguns bugs (os de propósito moram nos desafios)</footer>
+
+  <dialog id="janela-conta" class="janela">
+    <button type="button" class="fechar" id="fechar-conta" aria-label="Fechar">×</button>
+    <h2>Bata na porta</h2>
+    <div class="abas">
+      <button type="button" class="btn" id="aba-entrar" aria-pressed="true">Entrar</button>
+      <button type="button" class="btn" id="aba-criar" aria-pressed="false">Criar conta</button>
+    </div>
+    <form id="form-conta" novalidate>
+      <label for="c-usuario">Seu apelido</label>
+      <input id="c-usuario" name="usuario" autocomplete="username" maxlength="30" required>
+      <div id="linha-email" hidden>
+        <label for="c-email">E-mail</label>
+        <input id="c-email" name="email" type="email" autocomplete="email" maxlength="254">
+      </div>
+      <label for="c-senha">Senha</label>
+      <input id="c-senha" name="senha" type="password" autocomplete="current-password" maxlength="72" required>
+      <p id="msg-conta" class="msg" role="alert"></p>
+      <button id="btn-conta" class="btn btn-rosa" type="submit">Abrir a porta</button>
+    </form>
+  </dialog>
+
+  <dialog id="janela-porta" class="janela">
+    <button type="button" class="fechar" id="fechar-porta" aria-label="Fechar">×</button>
+    <p class="selo" id="porta-selo"></p>
+    <h2 id="porta-titulo"></h2>
+    <p class="descricao" id="porta-descricao"></p>
+
+    <div id="porta-ambiente" class="ambiente" hidden>
+      <button type="button" class="btn btn-menta" id="btn-ligar">Ligar o ambiente</button>
+      <a id="porta-link" href="about:blank" target="_blank" rel="noopener noreferrer" hidden></a>
+      <p id="porta-expira" class="pequeno"></p>
+    </div>
+
+    <form id="form-flag" autocomplete="off">
+      <label for="campo-flag">Sua chave</label>
+      <input id="campo-flag" name="flag" placeholder="CTF{...}" spellcheck="false" maxlength="200" required>
+      <button id="btn-girar" class="btn btn-rosa" type="submit">Girar a chave</button>
+    </form>
+    <p id="porta-msg" class="msg" role="status"></p>
+  </dialog>
+
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>

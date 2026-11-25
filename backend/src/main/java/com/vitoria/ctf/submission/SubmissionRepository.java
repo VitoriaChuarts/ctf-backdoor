@@ -2,6 +2,7 @@ package com.vitoria.ctf.submission;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.time.Instant;
 import java.util.List;
@@ -20,4 +21,7 @@ public interface SubmissionRepository extends JpaRepository<Submission, Long> {
             order by sum(c.points) desc, max(s.submittedAt) asc
             """)
     List<ScoreRow> scoreboard();
+
+    @Query("select s.challengeId from Submission s where s.userId = :userId and s.correct = true")
+    List<Long> solvedChallengeIds(@Param("userId") Long userId);
 }

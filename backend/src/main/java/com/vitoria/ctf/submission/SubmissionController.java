@@ -28,17 +28,23 @@ public class SubmissionController {
     private final SubmissionRepository submissions;
     private final CheatAlertRepository alerts;
     private final FlagService flags;
+    private final ScoreboardService scoreboard;
+    private final ScoreboardBroadcaster broadcaster;
 
     public SubmissionController(UserRepository users,
                                 ChallengeRepository challenges,
                                 SubmissionRepository submissions,
                                 CheatAlertRepository alerts,
-                                FlagService flags) {
+                                FlagService flags,
+                                ScoreboardService scoreboard,
+                                ScoreboardBroadcaster broadcaster) {
         this.users = users;
         this.challenges = challenges;
         this.submissions = submissions;
         this.alerts = alerts;
         this.flags = flags;
+        this.scoreboard = scoreboard;
+        this.broadcaster = broadcaster;
     }
 
     @PostMapping("/{id}/submit")
@@ -83,6 +89,7 @@ public class SubmissionController {
         submissions.save(new Submission(user.getId(), id, correct));
 
         if (correct) {
+            broadcaster.broadcast(scoreboard.current());
             return ResponseEntity.ok(Map.of("correct", true, "points", challenge.getPoints()));
         }
         return ResponseEntity.ok(Map.of("correct", false));

@@ -6,10 +6,11 @@ public record ChallengeView(
         String description,
         String category,
         Difficulty difficulty,
-        int points
+        int points,
+        boolean hasContainer
 ) {
     public static ChallengeView from(Challenge c) {
         return new ChallengeView(c.getId(), c.getTitle(), c.getDescription(),
-                c.getCategory(), c.getDifficulty(), c.getPoints());
+                c.getCategory(), c.getDifficulty(), c.getPoints(), c.hasContainer());
     }
 }
